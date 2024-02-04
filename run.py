@@ -105,6 +105,7 @@ results_glovo = {}
 glovo_export_array = []
 for key in glovo_params_configs.keys():
     results_glovo[key] = (glovo(key))
+#   print(results_wolt[key])
     glovo_json = json.loads(results_glovo[key])
     for element in glovo_json['elements']:
         if element['singleData']['type'] == 'STORE_WITH_PRODUCTS':
@@ -126,11 +127,13 @@ for key in glovo_params_configs.keys():
 with open(f'{export_dir}/glovo_export_{timestr}.json', 'w', encoding='utf-8') as f:
     json.dump(glovo_export_array, f, ensure_ascii=False, indent=4)
 
+print("glovo/wolt")
 
 results_wolt = {}
 wolt_export_array = []
 for key in wolt_params_configs.keys():
     results_wolt[key] = (wolt(key))
+#    print(results_wolt[key])
     wolt_json = json.loads(results_wolt[key])
     for section in wolt_json['sections']:
         for item in section['items']:

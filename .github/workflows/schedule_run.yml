@@ -1,4 +1,4 @@
-name: Daily Python Script
+name: Run Red Bull Price Grabber
 
 on:
   schedule:

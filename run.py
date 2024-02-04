@@ -1,9 +1,17 @@
 import requests
 import json
 import re
+import time
+import os
 
-# Sometimes stores write names incorrectly like redbull or რედბულ, but their search algorithms mitigate this issue. 
+# Sometimes venues write names incorrectly like redbull or რედბულ, but their search algorithms mitigate this issue. 
 regex_pattern = r"redbull|red bull|რედბულ|რედ ბულ"
+# Creating a timestamp
+timestr = time.strftime("%Y%m%d-%H%M%S")
+# Creating dir if missing
+export_dir = './export'
+os.makedirs(export_dir, exist_ok=True)
+
 wolt_params_configs = {
     'en': {'q': 'red bull','target': 'items','lat': 41.6938026,'lon': 44.80151679999999,'sorting_and_filtering_v2': None,},
     'ge': {'q': 'რედ ბულ','target': 'items','lat': 41.6938026,'lon': 44.80151679999999,'sorting_and_filtering_v2': None,},
@@ -110,7 +118,7 @@ for key in glovo_params_configs.keys():
                         'glovo_product_price': glovo_product_price                       
                     }
                     glovo_export_array.append(glovo_export)
-with open('glovo_export.json', 'w', encoding='utf-8') as f:
+with open(f'{export_dir}/glovo_export_{timestr}.json', 'w', encoding='utf-8') as f:
     json.dump(glovo_export_array, f, ensure_ascii=False, indent=4)
 
 
@@ -134,5 +142,5 @@ for key in wolt_params_configs.keys():
                 'wolt_item_price': wolt_item_price / 100
                 }
             wolt_export_array.append(wolt_export)
-with open('wolt_export.json', 'w', encoding='utf-8') as f:
+with open(f'{export_dir}/wolt_export_{timestr}.json', 'w', encoding='utf-8') as f:
     json.dump(wolt_export_array, f, ensure_ascii=False, indent=4)

@@ -1,13 +1,18 @@
 import requests
 import json
 import re
-import time
 import os
+from datetime import datetime
+import pytz
 
 # Sometimes venues write names incorrectly like redbull or რედბულ, but their search algorithms mitigate this issue. 
 regex_pattern = r"redbull|red bull|რედბულ|რედ ბულ"
-# Creating a timestamp
-timestr = time.strftime("%Y%m%d-%H%M%S")
+
+# Creating a timestamp ISO 8601 compliant timestamp in UTC timezone
+timezone = pytz.timezone("UTC") 
+time_in_tz = datetime.now(timezone)
+timestr = time_in_tz.strftime('%Y-%m-%d-%H%:M%:S')
+
 # Creating dir if missing
 export_dir = './export'
 os.makedirs(export_dir, exist_ok=True)

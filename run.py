@@ -1,8 +1,6 @@
 import requests
 import json
 import re
-#import traceback
-#import logging
 
 # Sometimes stores write names incorrectly like redbull or რედბულ, but their search algorithms mitigate this issue. 
 regex_pattern = r"redbull|red bull|რედბულ|რედ ბულ"

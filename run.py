@@ -11,7 +11,7 @@ regex_pattern = r"redbull|red bull|რედბულ|რედ ბულ"
 # Creating a timestamp ISO 8601 compliant timestamp in UTC timezone
 timezone = pytz.timezone("UTC") 
 time_in_tz = datetime.now(timezone)
-timestr = time_in_tz.strftime('%Y-%m-%d-%H%:M%:S')
+timestr = time_in_tz.strftime('%Y-%m-%d-%H:%M:%S')
 
 # Creating dir if missing
 export_dir = './export'

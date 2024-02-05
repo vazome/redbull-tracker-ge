@@ -1,0 +1,359 @@
+[
+    {
+        "glovo_store_id": 23211,
+        "glovo_store_name": "Alcorium",
+        "glovo_product_name": "გაგ. რედბული 0,355ლ  ენერგეტიკული",
+        "glovo_product_description": "",
+        "glovo_product_price": "6.6"
+    },
+    {
+        "glovo_store_id": 23211,
+        "glovo_store_name": "Alcorium",
+        "glovo_product_name": "გაგ. რედბული 0,25ლ  ენერგეტიკული",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.8"
+    },
+    {
+        "glovo_store_id": 23211,
+        "glovo_store_name": "Alcorium",
+        "glovo_product_name": "გაგ. რედბული უშაქრო 0,25ლ  ენერგეტიკული",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.8"
+    },
+    {
+        "glovo_store_id": 413622,
+        "glovo_store_name": "KFC",
+        "glovo_product_name": "რედბული",
+        "glovo_product_description": "რედბული ",
+        "glovo_product_price": "5.5"
+    },
+    {
+        "glovo_store_id": 413622,
+        "glovo_store_name": "KFC",
+        "glovo_product_name": "რედბული უშაქრო",
+        "glovo_product_description": "რედბული უშაქრო ",
+        "glovo_product_price": "5.5"
+    },
+    {
+        "glovo_store_id": 169869,
+        "glovo_store_name": "Agrohub",
+        "glovo_product_name": "ენერგეტიკული სასმელი /რედბული/ 4ც",
+        "glovo_product_description": "",
+        "glovo_product_price": "17.9"
+    },
+    {
+        "glovo_store_id": 169869,
+        "glovo_store_name": "Agrohub",
+        "glovo_product_name": "ენერგეტიკული სასმელი ტროპიკული გემო/რედბული/ 0.250ლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.9"
+    },
+    {
+        "glovo_store_id": 365673,
+        "glovo_store_name": "Nikora Express",
+        "glovo_product_name": "ენერგეტიკული სასმელი რედ ბული 0.25 ლ   1ც",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.99"
+    },
+    {
+        "glovo_store_id": 37350,
+        "glovo_store_name": "Nikora Supermarket",
+        "glovo_product_name": "ენერგეტიკული სასმელი რედ ბული 0.25 ლ   1ც",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.99"
+    },
+    {
+        "glovo_store_id": 70098,
+        "glovo_store_name": "Carrefour",
+        "glovo_product_name": "რედ ბული ენერგეტიკული სასმელი 355 მლ/90376504 1ც",
+        "glovo_product_description": "",
+        "glovo_product_price": "6.95"
+    },
+    {
+        "glovo_store_id": 70098,
+        "glovo_store_name": "Carrefour",
+        "glovo_product_name": "რედ ბული ენერგეტიკული სასმელი 250 მლ/9002490100490",
+        "glovo_product_description": "",
+        "glovo_product_price": "16.95"
+    },
+    {
+        "glovo_store_id": 70098,
+        "glovo_store_name": "Carrefour",
+        "glovo_product_name": "რედ ბული ენერგეტიკული სასმელი ტროპიკი 250 მლ/90435201 1ც",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.2"
+    },
+    {
+        "glovo_store_id": 70098,
+        "glovo_store_name": "Carrefour",
+        "glovo_product_name": "რედ ბული ენერგეტიკული სასმელი 250 მლ/90162718 1ც",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.2"
+    },
+    {
+        "glovo_store_id": 70098,
+        "glovo_store_name": "Carrefour",
+        "glovo_product_name": "რედ ბული უშაქრო ენერგეტიკული სასმელი 250 მლ/90162800 1ც",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.2"
+    },
+    {
+        "glovo_store_id": 36070,
+        "glovo_store_name": "Wendy's",
+        "glovo_product_name": "რედბული  250 მლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "6.55"
+    },
+    {
+        "glovo_store_id": 26609,
+        "glovo_store_name": "SPAR",
+        "glovo_product_name": "ენერგეტიკული სასმელი / რედბული / 0.25ლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "5.15"
+    },
+    {
+        "glovo_store_id": 26609,
+        "glovo_store_name": "SPAR",
+        "glovo_product_name": "ენერგეტიკული სასმელი / რედბული / 0.355ლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "7.3"
+    },
+    {
+        "glovo_store_id": 26609,
+        "glovo_store_name": "SPAR",
+        "glovo_product_name": "ენერგეტიკული სასმელი/რედბული Yellow Edition/0.25ლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "5.15"
+    },
+    {
+        "glovo_store_id": 25783,
+        "glovo_store_name": "Coffeesta",
+        "glovo_product_name": "რედბული 0,25 ლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "7.0"
+    },
+    {
+        "glovo_store_id": 25783,
+        "glovo_store_name": "Coffeesta",
+        "glovo_product_name": "რედბული უშაქრო 0.25ლ  ენერგეტიკული",
+        "glovo_product_description": "",
+        "glovo_product_price": "7.0"
+    },
+    {
+        "glovo_store_id": 25783,
+        "glovo_store_name": "Coffeesta",
+        "glovo_product_name": "რედბული 0.25ლ YELLOW ენერგეტიკული",
+        "glovo_product_description": "",
+        "glovo_product_price": "7.0"
+    },
+    {
+        "glovo_store_id": 83557,
+        "glovo_store_name": "Shatre",
+        "glovo_product_name": "რედბული",
+        "glovo_product_description": "ენერგეტიკული სასმელი",
+        "glovo_product_price": "8.0"
+    },
+    {
+        "glovo_store_id": 410286,
+        "glovo_store_name": "Beer Vibes",
+        "glovo_product_name": "ენერგეტიკული სასმელი რედბული 0,25 ლ/24ცალი",
+        "glovo_product_description": "",
+        "glovo_product_price": "6.0"
+    },
+    {
+        "glovo_store_id": 391358,
+        "glovo_store_name": "Provence",
+        "glovo_product_name": "რედ ბული",
+        "glovo_product_description": "",
+        "glovo_product_price": "13.0"
+    },
+    {
+        "glovo_store_id": 403709,
+        "glovo_store_name": "Wendy's Chicken",
+        "glovo_product_name": "რედბული",
+        "glovo_product_description": "",
+        "glovo_product_price": "6.55"
+    },
+    {
+        "glovo_store_id": 419385,
+        "glovo_store_name": "Machame",
+        "glovo_product_name": "რედბული 0.33 მლ /  RedBull 0.33 ml",
+        "glovo_product_description": "",
+        "glovo_product_price": "8.0"
+    },
+    {
+        "glovo_store_id": 419385,
+        "glovo_store_name": "Machame",
+        "glovo_product_name": "რედბული  უშაქრო 0.33 მლ /  RedBull No Sugar 0.33 ml",
+        "glovo_product_description": "",
+        "glovo_product_price": "8.0"
+    },
+    {
+        "glovo_store_id": 349410,
+        "glovo_store_name": "Nikora Gifts & More",
+        "glovo_product_name": "ენერგეტიკული სასმელი რედ ბული 0.25 ლ   1ც",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.99"
+    },
+    {
+        "glovo_store_id": 195963,
+        "glovo_store_name": "IOLI Supermarket",
+        "glovo_product_name": "ენერგეტიკული სასმელი / რედბული / 0.355ლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "7.3"
+    },
+    {
+        "glovo_store_id": 195963,
+        "glovo_store_name": "IOLI Supermarket",
+        "glovo_product_name": "ენერგეტიკული სასმელი / რედბული / 0.25ლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "5.15"
+    },
+    {
+        "glovo_store_id": 195963,
+        "glovo_store_name": "IOLI Supermarket",
+        "glovo_product_name": "ენერგეტიკული სასმელი / რედბული უშაქრო/ 0.25ლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "5.15"
+    },
+    {
+        "glovo_store_id": 36416,
+        "glovo_store_name": "Wendy's Pizza",
+        "glovo_product_name": "რედბული",
+        "glovo_product_description": "",
+        "glovo_product_price": "6.55"
+    },
+    {
+        "glovo_store_id": 282243,
+        "glovo_store_name": "Libre Supermarket",
+        "glovo_product_name": "ენერგეტიკული სასმელი რედ ბული 0.25 ლ   1ც",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.25"
+    },
+    {
+        "glovo_store_id": 278154,
+        "glovo_store_name": "Tsiskvilis bazari",
+        "glovo_product_name": "ენერგეტიკული სასმელი / რედბული / 0.25ლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "5.15"
+    },
+    {
+        "glovo_store_id": 22960,
+        "glovo_store_name": "PIPES Burger Joint",
+        "glovo_product_name": "რედ ბული (250მლ)",
+        "glovo_product_description": "",
+        "glovo_product_price": "8.8"
+    },
+    {
+        "glovo_store_id": 108106,
+        "glovo_store_name": "Tiflisi Vorontsovze",
+        "glovo_product_name": "რედ ბული 250მლ",
+        "glovo_product_description": "ენერგეტიკული სასმელი",
+        "glovo_product_price": "8.99"
+    },
+    {
+        "glovo_store_id": 100120,
+        "glovo_store_name": "Quesadillas",
+        "glovo_product_name": "რედ ბული",
+        "glovo_product_description": "ენერგეტიკული სასმელი",
+        "glovo_product_price": "9.0"
+    },
+    {
+        "glovo_store_id": 70098,
+        "glovo_store_name": "Carrefour",
+        "glovo_product_name": "რედ ბული უშაქრო ენერგეტიკული სასმელი 250 მლ/90162800 1ც",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.2"
+    },
+    {
+        "glovo_store_id": 70098,
+        "glovo_store_name": "Carrefour",
+        "glovo_product_name": "რედ ბული ენერგეტიკული სასმელი 250 მლ/9002490100490",
+        "glovo_product_description": "",
+        "glovo_product_price": "16.95"
+    },
+    {
+        "glovo_store_id": 70098,
+        "glovo_store_name": "Carrefour",
+        "glovo_product_name": "რედ ბული ენერგეტიკული სასმელი ტროპიკი 250 მლ/90435201 1ც",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.2"
+    },
+    {
+        "glovo_store_id": 70098,
+        "glovo_store_name": "Carrefour",
+        "glovo_product_name": "რედ ბული ენერგეტიკული სასმელი 250 მლ/90162718 1ც",
+        "glovo_product_description": "",
+        "glovo_product_price": "4.2"
+    },
+    {
+        "glovo_store_id": 49854,
+        "glovo_store_name": "CARREFOUR",
+        "glovo_product_name": "RED BULL ენერგეტიკული სასმელი 355მლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "6.95"
+    },
+    {
+        "glovo_store_id": 49854,
+        "glovo_store_name": "CARREFOUR",
+        "glovo_product_name": "RED BULL ენერგეტიკული სასმელი 250მლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "3.95"
+    },
+    {
+        "glovo_store_id": 49854,
+        "glovo_store_name": "CARREFOUR",
+        "glovo_product_name": "RED BULL ენერგეტიკული სასმელი ტროპიკი 250მლ",
+        "glovo_product_description": "",
+        "glovo_product_price": "3.95"
+    },
+    {
+        "glovo_store_id": 39345,
+        "glovo_store_name": "Dunkin'",
+        "glovo_product_name": "Red Bull",
+        "glovo_product_description": "ენერგეტიკული სასმელი",
+        "glovo_product_price": "7.5"
+    },
+    {
+        "glovo_store_id": 344723,
+        "glovo_store_name": "Smugglers",
+        "glovo_product_name": "RedBull 0.355L",
+        "glovo_product_description": "",
+        "glovo_product_price": "6.8"
+    },
+    {
+        "glovo_store_id": 369186,
+        "glovo_store_name": "Tumtum",
+        "glovo_product_name": "Red Bull",
+        "glovo_product_description": "",
+        "glovo_product_price": "13.0"
+    },
+    {
+        "glovo_store_id": 369186,
+        "glovo_store_name": "Tumtum",
+        "glovo_product_name": "Red Bull Tropical",
+        "glovo_product_description": "",
+        "glovo_product_price": "13.0"
+    },
+    {
+        "glovo_store_id": 419385,
+        "glovo_store_name": "Machame",
+        "glovo_product_name": "რედბული 0.33 მლ /  RedBull 0.33 ml",
+        "glovo_product_description": "",
+        "glovo_product_price": "8.0"
+    },
+    {
+        "glovo_store_id": 419385,
+        "glovo_store_name": "Machame",
+        "glovo_product_name": "რედბული  უშაქრო 0.33 მლ /  RedBull No Sugar 0.33 ml",
+        "glovo_product_description": "",
+        "glovo_product_price": "8.0"
+    },
+    {
+        "glovo_store_id": 92042,
+        "glovo_store_name": "Smart",
+        "glovo_product_name": "ენერგეტიკული სასმელი RED BULL 250 მლ.",
+        "glovo_product_description": "",
+        "glovo_product_price": "6.25"
+    }
+]

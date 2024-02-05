@@ -54,8 +54,10 @@ glovo_params_configs = {
     "en": {"query": "red bull", "type": "Category"},
 }
 
+export_array = []
 
-def wolt(wolt_config_key):
+
+def wolt_request(wolt_config_key):
     wolt_url = "https://restaurant-api.wolt.com/v1/pages/search"
     wolt_headers = {
         "authority": "restaurant-api.wolt.com",
@@ -79,7 +81,9 @@ def wolt(wolt_config_key):
         "x-wolt-web-clientid": "d4c8fb08-64b8-4a23-9559-edf2e18a1858",
     }
     wolt_params = wolt_params_configs[wolt_config_key]
-    wolt_post = requests.post(url=wolt_url, headers=wolt_headers, json=wolt_params)
+    wolt_post = requests.post(
+        url=wolt_url, headers=wolt_headers, json=wolt_params, timeout=60
+    )
     # It's some sort of error handling referencing HTTP respose code
     if str(wolt_post.status_code).startswith(("1", "2", "3")):
         print("Wolt status code" + str(wolt_post.status_code))
@@ -92,7 +96,7 @@ def wolt(wolt_config_key):
     #        logging.error(traceback.format_exc())
 
 
-def glovo(glovo_config_key):
+def glovo_request(glovo_config_key):
     glovo_url = "https://api.glovoapp.com/v3/feeds/search"
     glovo_headers = {
         "authority": "api.glovoapp.com",
@@ -124,7 +128,9 @@ def glovo(glovo_config_key):
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
     }
     glovo_params = glovo_params_configs[glovo_config_key]
-    glovo_get = requests.get(url=glovo_url, headers=glovo_headers, params=glovo_params)
+    glovo_get = requests.get(
+        url=glovo_url, headers=glovo_headers, params=glovo_params, timeout=60
+    )
     print("Glovo status code" + str(glovo_get.status_code))
     return glovo_get.text
 
@@ -180,67 +186,67 @@ def pg_export(*datasets):
 
 
 # Parsing the data
-results_glovo = {}
-export_array = []
-glovo_export_array = []
-for key in glovo_params_configs:
-    results_glovo[key] = glovo(key)
-    #   print(results_wolt[key])
-    glovo_json = json.loads(results_glovo[key])
-    for element in glovo_json["elements"]:
-        if element["singleData"]["type"] == "STORE_WITH_PRODUCTS":
-            glovo_venue_id = element["singleData"]["storeProductsData"]["store"][
-                "store"
-            ]["id"]
-            glovo_venue_name = element["singleData"]["storeProductsData"]["store"][
-                "store"
-            ]["name"]
-            for product in element["singleData"]["storeProductsData"]["products"]:
-                if re.findall(REGEX_PATTERN, product["name"], flags=re.I):
-                    globo_product_id = product["id"]
-                    glovo_product_name = product["name"]
-                    glovo_product_description = product["description"]
-                    glovo_product_price = str(round(product["price"], 2))
-                    glovo_export = {
-                        "venue_id": glovo_venue_id,
-                        "venue_name": glovo_venue_name,
-                        "product_id": globo_product_id,
-                        "product_name": glovo_product_name,
-                        "product_description": glovo_product_description,
-                        "product_price": glovo_product_price,
-                        "platform_name": "glovo",
-                    }
-                    glovo_export_array.append(glovo_export)
+def glovo_parse(params_config):
+    for key in params_config:
+        glovo_json = json.loads(glovo_request(key))
+        for element in glovo_json["elements"]:
+            if element["singleData"]["type"] == "STORE_WITH_PRODUCTS":
+                glovo_venue_id = element["singleData"]["storeProductsData"]["store"][
+                    "store"
+                ]["id"]
+                glovo_venue_name = element["singleData"]["storeProductsData"]["store"][
+                    "store"
+                ]["name"]
+                for product in element["singleData"]["storeProductsData"]["products"]:
+                    if re.findall(REGEX_PATTERN, product["name"], flags=re.I):
+                        globo_product_id = product["id"]
+                        glovo_product_name = product["name"]
+                        glovo_product_description = product["description"]
+                        glovo_product_price = str(round(product["price"], 2))
+                        glovo_export = {
+                            "venue_id": glovo_venue_id,
+                            "venue_name": glovo_venue_name,
+                            "product_id": globo_product_id,
+                            "product_name": glovo_product_name,
+                            "product_description": glovo_product_description,
+                            "product_price": glovo_product_price,
+                            "platform_name": "glovo",
+                        }
+                        export_array.append(glovo_export)
 
-results_wolt = {}  # we create dict to destinguish en and ge keys
-wolt_export_array = []
-for key in wolt_params_configs:
-    results_wolt[key] = wolt(key)
-    #   print(results_wolt[key])
-    wolt_json = json.loads(results_wolt[key])
-    for section in wolt_json["sections"]:
-        for item in section["items"]:
-            wolt_venue_id = item["link"]["menu_item_details"]["venue_id"]
-            wolt_venue_name = item["link"]["menu_item_details"]["venue_name"]
-            wolt_product_id = item["link"]["menu_item_details"]["id"]
-            wolt_product_name = item["link"]["menu_item_details"]["name"]
-            wolt_product_description = item["link"]["menu_item_details"]["description"]
-            wolt_product_price = item["link"]["menu_item_details"]["price"]
-            wolt_export = {
-                "venue_id": wolt_venue_id,
-                "venue_name": wolt_venue_name,
-                "product_id": wolt_product_id,
-                "product_name": wolt_product_name,
-                "product_description": wolt_product_description,
-                "product_price": wolt_product_price / 100,
-                "platform_name": "wolt",
-            }
-            wolt_export_array.append(wolt_export)
+
+def wolt_parse(params_config):
+    for key in params_config:
+        wolt_json = json.loads(wolt_request(key))
+        for section in wolt_json["sections"]:
+            for item in section["items"]:
+                wolt_venue_id = item["link"]["menu_item_details"]["venue_id"]
+                wolt_venue_name = item["link"]["menu_item_details"]["venue_name"]
+                wolt_product_id = item["link"]["menu_item_details"]["id"]
+                wolt_product_name = item["link"]["menu_item_details"]["name"]
+                wolt_product_description = item["link"]["menu_item_details"][
+                    "description"
+                ]
+                wolt_product_price = item["link"]["menu_item_details"]["price"]
+                wolt_export = {
+                    "venue_id": wolt_venue_id,
+                    "venue_name": wolt_venue_name,
+                    "product_id": wolt_product_id,
+                    "product_name": wolt_product_name,
+                    "product_description": wolt_product_description,
+                    "product_price": wolt_product_price / 100,
+                    "platform_name": "wolt",
+                }
+                export_array.append(wolt_export)
+
+
+# Request and parse data
+glovo_parse(glovo_params_configs)
+wolt_parse(wolt_params_configs)
 
 # Send to pgsql
-pg_export(glovo_export_array, wolt_export_array)
+pg_export(export_array)
 
 # Additionally, saving data to a timestamped JSON file
 with open(f"{EXPORT_DIR}/export_{timestr}.json", "w", encoding="utf-8") as f:
-    json.dump(wolt_export_array, f, ensure_ascii=False, indent=4)
-    json.dump(glovo_export_array, f, ensure_ascii=False, indent=4)
+    json.dump(export_array, f, ensure_ascii=False, indent=4)

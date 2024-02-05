@@ -8,6 +8,13 @@ on:
 permissions:
   contents: write
 
+env:
+  PG_DB_CONNECTION: ${{secrets.PG_DB_CONNECTION}}
+  PG_DB_NAME: ${{secrets.PG_DB_NAME}}
+  PG_DB_PORT: ${{secrets.PG_DB_PORT}}
+  PG_PASSWORD: ${{secrets.PG_PASSWORD}}
+  PG_USER: ${{secrets.PG_USER}}
+
 jobs:
   execute-python-script:
     runs-on: ubuntu-latest

@@ -34,9 +34,7 @@ jobs:
 
       - name: Copy generated files from container
         run: |
-          mkdir -p export
-          docker cp redbull-tracker-ge:/usr/src/app /home/runner/work/redbull-tracker-ge/redbull-tracker-ge
-
+          docker cp redbull-tracker-ge:/usr/src/app "${{github.workspace}}"
 
   run-in-actions:
     needs: run-in-docker
@@ -46,8 +44,8 @@ jobs:
       run: |
          pwd
          ls /home/runner/work/redbull-tracker-ge/redbull-tracker-ge
-#        git config --global user.name 'vazome'
-#        git config --global user.email 'vazome@users.noreply.github.com'
-#        git add ./export/*
-#        git commit -am "Adding more price reports to export"
-#        git push
+         git config --global user.name 'vazome'
+         git config --global user.email 'vazome@users.noreply.github.com'
+         git add ./export/*
+         git commit -am "Adding more price reports to export"
+         git push

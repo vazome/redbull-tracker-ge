@@ -24,6 +24,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            run.py
+          sparse-checkout-cone-mode: false
 
       - name: Install dependencies
         run: |

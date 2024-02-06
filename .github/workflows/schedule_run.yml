@@ -14,35 +14,39 @@ env:
   PG_DB_PORT: ${{secrets.PG_DB_PORT}}
   PG_PASSWORD: ${{secrets.PG_PASSWORD}}
   PG_USER: ${{secrets.PG_USER}}
-  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+  DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+  DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
 
 jobs:
-  execute-python-script:
+  run-in-docker:
     runs-on: ubuntu-20.04
     container: vazome/redbull-tracker-ge:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-#      - name: Set up Python
-#        uses: actions/setup-python@v5
-#        with:
-#          python-version: "3.11"
-#          cache: "pip"
-
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Python script
         run: python ./run.py
 
-      - name: Commit report
+      - name: Copy generated files from container
         run: |
-          git config --global user.name 'vazome'
-          git config --global user.email 'vazome@users.noreply.github.com'
-          git add ./export/*
-          git commit -am "Adding more price reports to export"
-          git push
+          mkdir -p export
+          docker cp redbull-tracker-ge:/usr/src/app /home/runner/work/redbull-tracker-ge/redbull-tracker-ge
+
+
+  run-in-actions:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Commit report
+      run: |
+         pwd
+         ls /home/runner/work/redbull-tracker-ge/redbull-tracker-ge
+#        git config --global user.name 'vazome'
+#        git config --global user.email 'vazome@users.noreply.github.com'
+#        git add ./export/*
+#        git commit -am "Adding more price reports to export"
+#        git push

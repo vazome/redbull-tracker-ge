@@ -48,10 +48,8 @@ jobs:
       - name: Download export file
         uses: actions/download-artifact@v4
         with:
-          name: ./export
-#      - name: Copy generated files from container
-#        run: |
-#          docker cp redbull-tracker-ge:/usr/src/app "${{github.workspace}}"
+          name: export
+          path: ./export
       - name: Commit report
         run: |
           pwd
@@ -61,4 +59,8 @@ jobs:
           git add ./export/*
           git commit -am "Adding more price reports to export"
           git push
-         
+
+# Not needed, utilizing artifacts
+#      - name: Copy generated files from container
+#        run: |
+#          docker cp redbull-tracker-ge:/usr/src/app "${{github.workspace}}"

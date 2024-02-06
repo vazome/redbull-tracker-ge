@@ -26,7 +26,7 @@ REGEX_PATTERN = r"redbull|red bull|რედბულ|რედ ბულ"
 # Creating an ISO 8601 compliant timestamp in UTC timezone
 timezone = pytz.timezone("UTC")
 time_in_tz = datetime.now(timezone)
-timestr = time_in_tz.strftime("%Y-%m-%d-%H:%M:%S")
+timestr = time_in_tz.strftime("%Y-%m-%d-%H-%M-%S")
 
 # Creating the dir if missing
 # Not required after docker implementation

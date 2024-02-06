@@ -1,0 +1,33 @@
+name: Test docker
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PG_DB_CONNECTION: ${{secrets.PG_DB_CONNECTION}}
+  PG_DB_NAME: ${{secrets.PG_DB_NAME}}
+  PG_DB_PORT: ${{secrets.PG_DB_PORT}}
+  PG_PASSWORD: ${{secrets.PG_PASSWORD}}
+  PG_USER: ${{secrets.PG_USER}}
+  DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+  DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
+
+jobs:
+  run-in-docker:
+    runs-on: ubuntu-20.04
+    container: vazome/redbull-tracker-ge:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+  run-in-actions:
+    needs: run-in-docker
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Copy generated files from container
+        run: |
+         docker ps -a
+         

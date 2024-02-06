@@ -22,13 +22,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Create samples
+        run: |
+          touch export_2023.json export_2024.json
+      - name: Upload export file
+        uses: actions/upload-artifact@v4
+        with:
+          name: export
+          path: export*.json
+          overwrite: true
 
   run-in-actions:
     needs: run-in-docker
     runs-on: ubuntu-20.04
     steps:
-      - name: Copy generated files from container
+      - name: Download export file
+        uses: actions/download-artifact@v4
+        with:
+          name: ./export
+      - name: List Samples
         run: |
-         docker ps -a
-         docker image ls
+            ls
          

@@ -32,13 +32,26 @@ jobs:
       - name: Run Python script
         run: python ./run.py
 
+      - name: Upload export file
+        uses: actions/upload-artifact@v4
+        with:
+          name: export
+          path: export*.json
+          overwrite: true
+
   run-in-actions:
     needs: run-in-docker
     runs-on: ubuntu-20.04
     steps:
-      - name: Copy generated files from container
-        run: |
-          docker cp redbull-tracker-ge:/usr/src/app "${{github.workspace}}"
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Download export file
+        uses: actions/download-artifact@v4
+        with:
+          name: ./export
+#      - name: Copy generated files from container
+#        run: |
+#          docker cp redbull-tracker-ge:/usr/src/app "${{github.workspace}}"
       - name: Commit report
         run: |
           pwd

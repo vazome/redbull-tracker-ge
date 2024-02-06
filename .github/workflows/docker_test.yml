@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: export
-          path: export*.json
+          path: ./export*.json
           overwrite: true
 
   run-in-actions:

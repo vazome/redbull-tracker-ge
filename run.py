@@ -29,8 +29,9 @@ time_in_tz = datetime.now(timezone)
 timestr = time_in_tz.strftime("%Y-%m-%d-%H:%M:%S")
 
 # Creating the dir if missing
-EXPORT_DIR = "./export"
-os.makedirs(EXPORT_DIR, exist_ok=True)
+# Not required after docker implementation
+# EXPORT_DIR = "./export"
+# os.makedirs(EXPORT_DIR, exist_ok=True)
 
 wolt_params_configs = {
     "en": {
@@ -248,5 +249,5 @@ wolt_parse(wolt_params_configs)
 pg_export(export_array)
 
 # Additionally, saving data to a timestamped JSON file
-with open(f"{EXPORT_DIR}/export_{timestr}.json", "w", encoding="utf-8") as f:
+with open(f"./export_{timestr}.json", "w", encoding="utf-8") as f:
     json.dump(export_array, f, ensure_ascii=False, indent=4)

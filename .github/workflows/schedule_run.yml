@@ -27,7 +27,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo ls /github/home/.cache/pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Python script

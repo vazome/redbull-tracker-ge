@@ -30,4 +30,5 @@ jobs:
       - name: Copy generated files from container
         run: |
          docker ps -a
+         docker image -ls
          

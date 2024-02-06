@@ -39,7 +39,7 @@ jobs:
       - name: Download export file
         uses: actions/download-artifact@v4
         with:
-          name: ./export
+          name: export
       - name: List Samples
         run: |
             ls

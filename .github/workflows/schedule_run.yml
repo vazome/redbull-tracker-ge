@@ -27,6 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          ls /github/home/.cache/pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Python script
@@ -39,6 +40,7 @@ jobs:
 
 
   run-in-actions:
+    needs: run-in-docker
     runs-on: ubuntu-20.04
     steps:
     - name: Commit report

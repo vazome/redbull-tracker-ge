@@ -36,22 +36,21 @@ jobs:
       - name: Run Python script
         run: python ./run.py
 
-      - name: Upload export file
-        uses: actions/upload-artifact@v4
-        with:
-          name: export
-          path: export/export*.json
-          overwrite: true
       - name: Commit report
         run: |
           pwd
-          ls /home/runner/work/redbull-tracker-ge/redbull-tracker-ge
           git config --global user.name 'vazome'
           git config --global user.email 'vazome@users.noreply.github.com'
           git add ./export/*
           git commit -am "Adding more price reports to export"
           git push
 
+#      - name: Upload export file
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: export
+#          path: export/export*.json
+#          overwrite: true
 #  run-in-actions:
 #    needs: run-in-docker
 #    runs-on: ubuntu-20.04

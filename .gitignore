@@ -162,4 +162,4 @@ run-test.py
 raw_output.txt
 glovo_export_stable_reference.json
 wolt_export_stable_reference.json
-requests_data.json
+export_output.txt

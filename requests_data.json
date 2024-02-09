@@ -1,0 +1,98 @@
+{
+    "locations_async": [
+        {
+            "name": "Dighomi Massive 6",
+            "lat": "41.7618235",
+            "lon": "44.7734069"
+        },
+        {
+            "name": "Vake",
+            "lat": "41.707843",
+            "lon": "44.771090"
+        }
+    ],
+    "platforms": [
+        {
+            "platform_name": "wolt",
+            "request_type": "post",
+            "url": "https://restaurant-api.wolt.com/v1/pages/search",
+            "params_configs": {
+                "en": {
+                    "q": "red bull",
+                    "target": "items",
+                    "lat": "locations_async_lat",
+                    "len": "locations_async_len"
+                },
+                "ge": {
+                    "q": "რედ ბულ",
+                    "target": "items",
+                    "lat": "locations_async_lat",
+                    "len": "locations_async_len"
+                }
+            },
+            "headers": {
+                "authority": "restaurant-api.wolt.com",
+                "accept": "application/json, text/plain, */*",
+                "accept-language": "en;q=0.9",
+                "app-language": "en",
+                "client-version": "1.10.145",
+                "clientversionnumber": "1.10.145",
+                "content-type": "application/json",
+                "origin": "https://wolt.com",
+                "platform": "Web",
+                "referer": "https://wolt.com/",
+                "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Google Chrome\";v=\"121\", \"Chromium\";v=\"121\"",
+                "sec-ch-ua-mobile": "?0",
+                "sec-ch-ua-platform": "macOS",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "same-site",
+                "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+                "w-wolt-session-id": "2483c231-b48b-465e-815e-57af0935ec52",
+                "x-wolt-web-clientid": "d4c8fb08-64b8-4a23-9559-edf2e18a1858"
+            }
+        },
+        {
+            "platform_name": "glovo",
+            "request_type": "get",
+            "url": "https://api.glovoapp.com/v3/feeds/search",
+            "params_configs": {
+                "ge": {
+                    "query": "რედ ბულ",
+                    "type": "Category"
+                },
+                "en": {
+                    "query": "red bull",
+                    "type": "Category"
+                }
+            },
+            "headers": {
+                "authority": "api.glovoapp.com",
+                "accept": "application/json",
+                "accept-language": "en;q=0.9",
+                "glovo-api-version": "14",
+                "glovo-app-development-state": "Production",
+                "glovo-app-platform": "web",
+                "glovo-app-type": "customer",
+                "glovo-app-version": "7",
+                "glovo-client-info": "web-customer-web/7 project:customer-web",
+                "glovo-delivery-location-accuracy": "0",
+                "glovo-delivery-location-timestamp": "1706885996583",
+                "glovo-device-urn": "glv:device:3d3572ae-231a-40de-a411-d2c99809aacb",
+                "glovo-dynamic-session-id": "39c26e98-6ab8-49e4-addd-a264fc271b3d",
+                "glovo-language-code": "en",
+                "glovo-location-city-code": "TBI",
+                "glovo-request-id": "cf38a368-e90a-4c7d-8c3a-b8e6fe575abc",
+                "origin": "https://glovoapp.com",
+                "referer": "https://glovoapp.com/",
+                "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Google Chrome\";v=\"121\", \"Chromium\";v=\"121\"",
+                "sec-ch-ua-mobile": "?0",
+                "sec-ch-ua-platform": "macOS",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "same-site",
+                "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+            }
+        }
+    ]
+}

@@ -36,6 +36,24 @@ jobs:
       - name: Run Python script
         run: python ./run.py
 
+      - name: Upload export file
+        uses: actions/upload-artifact@v4
+        with:
+          name: export
+          path: export/export*.json
+          overwrite: true
+
+  run-in-actions:
+    needs: run-in-docker
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Download export file
+        uses: actions/download-artifact@v4
+        with:
+          name: export
+          path: ./export
       - name: Commit report
         run: |
           pwd
@@ -44,25 +62,6 @@ jobs:
           git add ./export/*
           git commit -am "Adding more price reports to export"
           git push
-
-#      - name: Upload export file
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: export
-#          path: export/export*.json
-#          overwrite: true
-#  run-in-actions:
-#    needs: run-in-docker
-#    runs-on: ubuntu-20.04
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#      - name: Download export file
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: export
-#          path: ./export
-
 
 # Not needed, utilizing artifacts
 #      - name: Copy generated files from container

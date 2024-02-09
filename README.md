@@ -14,7 +14,9 @@ Supports multiple platform being added
 ## How it works
 ### Building a request
 The script begins by loading its configuration from a JSON file named [`requests_data.json`](requests_data.json). This file contains essential configurations including the physical locations and the platform specific information.
+
 For each platform specified in the configuration, the script makes HTTP requests to the platform's API. The type of request (`GET` or `POST`) and the necessary headers are defined per platform in the configuration file.
+
 #### Dynamic Location Handling
 The script utilizes the `locations_async` array from the configuration to dynamically adjust the request parameters for geolocation, enabling localized price tracking across different areas in Tbilisi.
 
@@ -24,7 +26,7 @@ Upon receiving the response from each platform, it parses the returned data for 
 
 ### Storage
 After data is parsed it is aggregated in both repo folder [./export](./export/) where each file is timestamped in UTC+00:00 and sent for store in bulk to AWS RDS PostgreSQL database.
-For DB it ensures that new data is correctly inserted providing a easy-to-analys dataset.
+For DB it ensures that new data is correctly inserted and provides an easy-to-analys dataset.
 <img width="1171" alt="image" src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/f3c2e9d3-d5f0-4d83-b5e9-d3492c509b78">
 
 ### Automation via GitHub Actions

@@ -1,0 +1,4 @@
+pytz
+psycopg2
+prettytable
+python-telegram-bot[ext]

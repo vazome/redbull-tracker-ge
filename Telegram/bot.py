@@ -7,6 +7,8 @@ import logging
 import time
 import datetime
 import pytz
+import prettytable as pt
+from telegram.constants import ParseMode
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import (
     Application,
@@ -18,8 +20,15 @@ from telegram.ext import (
 import psycopg2
 
 TG_BOT_TOKEN = os.environ["TG_BOT_TOKEN"]
+
+PG_DB_CONNECTION = os.environ["PG_DB_CONNECTION"]
+PG_DB_NAME = os.environ["PG_DB_NAME"]
+PG_DB_PORT = os.environ["PG_DB_PORT"]
+PG_PASSWORD = os.environ["PG_PASSWORD"]
+PG_USER = os.environ["PG_USER"]
+
 user_data = {}  # a dict to dump user responses
-districts = ["Dighomi Massive", "Vake"]
+districts = ["Dighomi Massive 6", "Vake"]
 
 # Making creating states in out conversation
 (
@@ -94,6 +103,7 @@ async def schedule_chosen(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
     district_option = context.user_data["district"]
     schedule_option = query.data  # This will be either "once" or "daily"
+    context.user_data["schedule"] = schedule_option
 
     # Here you can implement your logic based on the schedule_option
     # For example:
@@ -107,20 +117,60 @@ async def schedule_chosen(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         context.job_queue.run_once(
             callback_alarm,
             1,
-            data={"chat_id": update.effective_chat.id},
-            chat_id=chat_id,
+            data={
+                "chat_id": chat_id,
+                "schedule": schedule_option,
+                "district": district_option,
+            },
         )
     if schedule_option == "daily":
         reply_user_timing = f"You will be sent with prices schedule daily at {scheduled_time.hour}:{scheduled_time.minute}"
         context.job_queue.run_daily(
             callback_alarm,
             time=scheduled_time,
-            data={"chat_id": update.effective_chat.id},
-            chat_id=chat_id,
+            data={
+                "chat_id": chat_id,
+                "schedule": schedule_option,
+                "district": district_option,
+            },
         )
     await context.bot.send_message(chat_id=chat_id, text=reply_user_timing)
     await query.edit_message_text(text=f"Your scheduling option: {schedule_option}")
     # This should end the conversation or transition to another state as needed
+
+
+def pg_export(schedule, district):
+    connect = psycopg2.connect(
+        database=PG_DB_NAME,
+        user=PG_USER,
+        host=PG_DB_CONNECTION,
+        password=PG_PASSWORD,
+        port=PG_DB_PORT,
+    )
+    SQL_GET_TODAY = """SELECT p.product_name, p.product_price, g.venue_name, g.platform_name 
+FROM products p JOIN general g ON p.product_id = g.product_id
+WHERE p.created_at >= NOW() - INTERVAL '24 HOURS' AND p.location_name = %s 
+ORDER BY p.product_price ASC LIMIT 10"""
+    SQL_GET_DAILY = """SELECT product_name, product_price
+    FROM products
+    WHERE products.created_at >= NOW() - INTERVAL '24 HOURS'
+    AND location_name = %s
+    ORDER BY product_price ASC LIMIT 10"""
+    try:
+        cursor = connect.cursor()
+        if schedule == "once":
+            cursor.execute(SQL_GET_TODAY, (district,))
+        if schedule == "daily":
+            cursor.execute(SQL_GET_DAILY, (district,))
+        result = cursor.fetchall()
+        return result
+    except psycopg2.Error as e:
+        print(f"An error occurred: {e}")
+        connect.rollback()
+        return []
+    finally:
+        cursor.close()
+        connect.close()
 
 
 async def save_selection_to_database(user_id, district):
@@ -132,7 +182,29 @@ async def save_selection_to_database(user_id, district):
 async def callback_alarm(context: ContextTypes.DEFAULT_TYPE):
     # Beep the person who called this alarm:
     chat_id = context.job.data["chat_id"]
-    await context.bot.send_message(chat_id=chat_id, text="BEEP!")
+    schedule = context.job.data["schedule"]
+    district = context.job.data["district"]
+    result = pg_export(schedule, district)
+    table = pt.PrettyTable(["Product", "Price", "Venue", "Platform"])
+    table.align["Product"] = "l"
+    table.align["Price"] = "r"
+    table.align["Venue"] = "l"
+    table.align["Platform"] = "l"
+    for product, price, venue, platform in result:
+        table.add_row(
+            [
+                product.replace("Energy Drink", "")
+                .replace("ენერგეტიკული", "")
+                .replace("Energy Drunk", "")
+                .replace("სასმელი", ""),
+                f"{price:.2f}",
+                venue,
+                platform,
+            ]
+        )
+    await context.bot.send_message(
+        chat_id=chat_id, text=f"```{table}```", parse_mode=ParseMode.MARKDOWN_V2
+    )
 
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:

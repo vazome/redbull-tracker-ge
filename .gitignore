@@ -163,3 +163,4 @@ raw_output.txt
 glovo_export_stable_reference.json
 wolt_export_stable_reference.json
 export_output.txt
+.DS_Store

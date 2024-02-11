@@ -186,9 +186,12 @@ def pg_export(data):
         password=PG_PASSWORD,
         port=PG_DB_PORT,
     )
-    SQL_EXPORT_GENERAL = """INSERT INTO general(venue_id, venue_name, product_id, product_name, platform_name)
+    SQL_EXPORT_GENERAL = """
+    INSERT INTO general(venue_id, venue_name, product_id, product_name, platform_name)
     VALUES(%s, %s, %s, %s, %s)
-    ON CONFLICT (product_id) DO NOTHING"""
+    ON CONFLICT (product_id)
+    DO UPDATE SET product_name = EXCLUDED.product_name
+    WHERE general.product_name IS NULL"""
     SQL_EXPORT_PRODUCTS = """INSERT INTO products(location_name, product_id, product_name, product_price, product_description)
     VALUES(%s, %s, %s, %s, %s)"""
     cursor = connect.cursor()

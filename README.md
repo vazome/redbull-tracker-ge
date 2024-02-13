@@ -36,8 +36,8 @@ The responsible action for scheduled runs is [![Run Red Bull Tracker](https://gi
 
 ## Telegram bot
 I've made a bot for a simple now or daily reporting: [Red Bull Tracker Bot](https://t.me/RedBullTrackerBot)https://t.me/RedBullTrackerBot
-https://github.com/vazome/redbull-tracker-ge/assets/46573198/a01b289a-c7d5-468a-8863-9331cf663921
 
+https://github.com/vazome/redbull-tracker-ge/assets/46573198/bd144415-dc78-4733-8bc7-d6a6b82d750a
 
 ## Grafana Analytics View
 <img width="1208" alt="image" src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/49440610-9a37-4e54-8c73-69074e14e1ab">

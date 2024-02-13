@@ -15,7 +15,7 @@ Utilizes:
 ## Telegram bot
 I've made a bot for a simple now or daily reporting: [Red Bull Tracker Bot](https://t.me/RedBullTrackerBot)
 
-https://github.com/vazome/redbull-tracker-ge/assets/46573198/bd144415-dc78-4733-8bc7-d6a6b82d750a
+![TG_BOT_DEMO_1](https://github.com/vazome/redbull-tracker-ge/assets/46573198/8c59955b-85cf-4f14-984b-f6139c0f24a3)
 
 ## Grafana Analytics View
 I wanted something to glance on and see the numbers changing, so I built a Grafana dashboard for that:

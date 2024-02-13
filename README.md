@@ -35,6 +35,11 @@ The entire process is automated through GitHub Actions, which configurations are
 The responsible action for scheduled runs is [![Run Red Bull Tracker](https://github.com/vazome/redbull-tracker-ge/actions/workflows/schedule_run.yml/badge.svg)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/schedule_run.yml).
 
 ## Telegram bot
-TBD
-## Web Analytics View 
-TBD
+I've made a bot for a simple now or daily reporting: [Red Bull Tracker Bot](https://t.me/RedBullTrackerBot)https://t.me/RedBullTrackerBot
+https://github.com/vazome/redbull-tracker-ge/assets/46573198/a01b289a-c7d5-468a-8863-9331cf663921
+
+
+## Grafana Analytics View
+<img width="1208" alt="image" src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/49440610-9a37-4e54-8c73-69074e14e1ab">
+
+Available here: https://vazome.grafana.net/public-dashboards/61b08f3b99974e1bab84a96e5c039a77

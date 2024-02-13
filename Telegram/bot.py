@@ -6,8 +6,8 @@ import os
 import logging
 import time
 import datetime
+import json
 import pytz
-import prettytable as pt
 from telegram.constants import ParseMode
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import (
@@ -28,13 +28,13 @@ PG_PASSWORD = os.environ["PG_PASSWORD"]
 PG_USER = os.environ["PG_USER"]
 
 user_data = {}  # a dict to dump user responses
-districts = ["Dighomi Massive 6", "Vake"]
+
+with open(os.path.dirname(__file__) + "/../requests_data.json", encoding="utf-8") as f:
+    requests_data = json.load(f)
+    districts = {loc["name"] for loc in requests_data["locations_async"]}
 
 # Making creating states in out conversation
-(
-    USER_CHOOSING_SCHEDULE,
-    USER_RECEIVES_SCHEDULED_REPLY,
-) = range(2)
+(USER_CHOOSING_SCHEDULE, USER_RECEIVES_SCHEDULED_REPLY) = range(2)
 
 # Logging
 logging.basicConfig(
@@ -44,16 +44,17 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 
-async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def help_command(update: Update) -> None:
     """Displays info on how to use the bot."""
     await update.message.reply_text(
-        "Use /start begin with this bot.\nTo start over use /cancel"
+        "First time use /start to begin conversation.\nTo restart conversation hit /cancel"
     )
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    context.user_data.clear()
-    await update.message.reply_text("Hey!\nThis is @RedBullTrackerBot")
+    await update.message.reply_text(
+        "Hey! This is @RedBullTrackerBot\nTo restart conversation hit /cancel"
+    )
     return await choose_district(update, context)
 
 
@@ -109,13 +110,13 @@ async def schedule_chosen(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     # For example:
     chat_id = update.effective_chat.id
     scheduled_time = datetime.time(
-        hour=20, minute=59, tzinfo=pytz.timezone("Asia/Tbilisi")
+        hour=13, minute=10, tzinfo=pytz.timezone("Asia/Tbilisi")
     )
     # days = (0, 1, 2, 3, 4, 5, 6)
     if schedule_option == "once":
-        reply_user_timing = "Getting your price now"
+        reply_user_timing = "Getting prices"
         context.job_queue.run_once(
-            callback_alarm,
+            scheduled_report,
             1,
             data={
                 "chat_id": chat_id,
@@ -126,7 +127,7 @@ async def schedule_chosen(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     if schedule_option == "daily":
         reply_user_timing = f"You will be sent with prices schedule daily at {scheduled_time.hour}:{scheduled_time.minute}"
         context.job_queue.run_daily(
-            callback_alarm,
+            scheduled_report,
             time=scheduled_time,
             data={
                 "chat_id": chat_id,
@@ -135,8 +136,9 @@ async def schedule_chosen(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             },
         )
     await context.bot.send_message(chat_id=chat_id, text=reply_user_timing)
-    await query.edit_message_text(text=f"Your scheduling option: {schedule_option}")
-    # This should end the conversation or transition to another state as needed
+
+
+#    await query.edit_message_text(text=f"Your scheduling option: {schedule_option}")
 
 
 def pg_export(schedule, district):
@@ -174,47 +176,59 @@ ORDER BY p.product_price ASC LIMIT 10"""
 
 
 async def save_selection_to_database(user_id, district):
-    # Implement the database insertion logic here
-    # This will involve connecting to your database and inserting the data
+    # For the future, to remeber users options and schedules if container restarts
     pass
 
 
-async def callback_alarm(context: ContextTypes.DEFAULT_TYPE):
+async def scheduled_report(context: ContextTypes.DEFAULT_TYPE):
     # Beep the person who called this alarm:
     chat_id = context.job.data["chat_id"]
     schedule = context.job.data["schedule"]
     district = context.job.data["district"]
+    # Gives list of tuples as a result
     result = pg_export(schedule, district)
-    table = pt.PrettyTable(["Product", "Price", "Venue", "Platform"])
-    table.align["Product"] = "l"
-    table.align["Price"] = "r"
-    table.align["Venue"] = "l"
-    table.align["Platform"] = "l"
-    for product, price, venue, platform in result:
-        table.add_row(
-            [
-                product.replace("Energy Drink", "")
-                .replace("ენერგეტიკული", "")
-                .replace("Energy Drunk", "")
-                .replace("სასმელი", ""),
-                f"{price:.2f}",
-                venue,
-                platform,
-            ]
+
+    # To format our text as Markdown we need to escape all MD reserved characters
+    def escape_markdown(text):
+        """Escape markdown special characters with a backslash."""
+        escape_chars = "_*[]()~`>#+-=|{}.!"
+        return "".join(f"\\{char}" if char in escape_chars else char for char in text)
+
+    # Declare new variables to store tuples results in and use MD escape function
+    output = ""
+    for details in result:
+        name = (
+            escape_markdown(details[0])
+            .replace("Energy Drink", "")
+            .replace("ენერგეტიკული", "")
+            .replace("Energy Drunk", "")
+            .replace("სასმელი", "")
         )
+        price = escape_markdown(str(details[1]))
+        venue = escape_markdown(details[2])
+        platform = escape_markdown(details[3])
+
+        output += f"*Name:* {name}\n*Price:* {price}\n*Venue:* {venue}\n*Platform:* {platform}\n\n"
+
     await context.bot.send_message(
-        chat_id=chat_id, text=f"```{table}```", parse_mode=ParseMode.MARKDOWN_V2
+        chat_id=chat_id, text=output, parse_mode=ParseMode.MARKDOWN_V2
     )
 
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Cancels and ends the conversation."""
     chat_id = update.message.chat_id
+    context.user_data.clear()
+    context.chat_data.clear()
+    context.bot_data.clear()
+    jobs = context.job_queue.get_jobs_by_name("scheduled_report")
+    print(jobs)
+    for job in jobs:
+        job.schedule_removal()
     await context.bot.send_message(
         chat_id=chat_id,
         text=f"User {update.effective_user.username} canceled the conversation.",
     )
-    return ConversationHandler.END
+    return await start(update, context)
 
 
 def main() -> None:

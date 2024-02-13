@@ -1,15 +1,27 @@
-# Tracker of RedBull prices
+# RedBull price tracker 
 [![Run Red Bull Price Grabber](https://github.com/vazome/redbull-tracker-ge/actions/workflows/schedule_run.yml/badge.svg?branch=main)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/schedule_run.yml)
 
 Convenient Red Bull price tracker made for Tbilisi, Georgia.
+As of now it supports two most major delivery providers: Wolt and Glovo
 
 Utilizes: 
 - Python
 - Github Actions
 - Docker
 - AWS RDS for PostgreSQL
+- Grafana
 
-Supports multiple platform being added
+## How to use
+## Telegram bot
+I've made a bot for a simple now or daily reporting: [Red Bull Tracker Bot](https://t.me/RedBullTrackerBot)
+
+https://github.com/vazome/redbull-tracker-ge/assets/46573198/bd144415-dc78-4733-8bc7-d6a6b82d750a
+
+## Grafana Analytics View
+I wanted something to glance on and see the numbers changing, so I built a Grafana dashboard for that:
+<img width="1208" alt="image" src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/49440610-9a37-4e54-8c73-69074e14e1ab">
+
+Available here: [Red Bull Dynamics](https://vazome.grafana.net/public-dashboards/61b08f3b99974e1bab84a96e5c039a77)
 
 ## How it works
 ### Building a request
@@ -33,13 +45,3 @@ For DB it ensures that new data is correctly inserted and provides an easy-to-an
 The entire process is automated through GitHub Actions, which configurations are stored in [.github/workflows](.github/workflows) (default location).
 
 The responsible action for scheduled runs is [![Run Red Bull Tracker](https://github.com/vazome/redbull-tracker-ge/actions/workflows/schedule_run.yml/badge.svg)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/schedule_run.yml).
-
-## Telegram bot
-I've made a bot for a simple now or daily reporting: [Red Bull Tracker Bot](https://t.me/RedBullTrackerBot)https://t.me/RedBullTrackerBot
-
-https://github.com/vazome/redbull-tracker-ge/assets/46573198/bd144415-dc78-4733-8bc7-d6a6b82d750a
-
-## Grafana Analytics View
-<img width="1208" alt="image" src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/49440610-9a37-4e54-8c73-69074e14e1ab">
-
-Available here: https://vazome.grafana.net/public-dashboards/61b08f3b99974e1bab84a96e5c039a77

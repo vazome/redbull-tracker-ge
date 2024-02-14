@@ -11,6 +11,7 @@ Utilizes:
 - Docker
 - AWS RDS for PostgreSQL
 - Grafana
+- Telegram API
 
 ## How to use
 ## Telegram bot

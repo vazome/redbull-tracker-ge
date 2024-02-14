@@ -2,7 +2,8 @@
 [![Run Red Bull Price Grabber](https://github.com/vazome/redbull-tracker-ge/actions/workflows/schedule_run.yml/badge.svg?branch=main)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/schedule_run.yml)
 
 Convenient Red Bull price tracker made for Tbilisi, Georgia.
-As of now it supports two most major delivery providers: Wolt and Glovo
+
+As of now it supports two most major delivery providers: Wolt and Glovo.
 
 Utilizes: 
 - Python

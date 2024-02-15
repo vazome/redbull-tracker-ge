@@ -20,7 +20,6 @@ from telegram.ext import (
 import psycopg2
 
 TG_BOT_TOKEN = os.environ["TG_BOT_TOKEN"]
-
 PG_DB_CONNECTION = os.environ["PG_DB_CONNECTION"]
 PG_DB_NAME = os.environ["PG_DB_NAME"]
 PG_DB_PORT = os.environ["PG_DB_PORT"]

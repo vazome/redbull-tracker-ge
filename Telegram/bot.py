@@ -113,13 +113,10 @@ async def choose_sub_district(
     query = update.callback_query
     await query.answer()  # Important to give feedback to the user that something happened
 
-    selected_district = query.data  # This is the district the user clicked
-    with open("requests_data.json", "r", encoding="utf-8") as f:
-        config = json.load(f)
-
+    selected_district = query.data
     # Extracting location names for the selected district
     location_names = [
-        loc["name"] for loc in config["locations_async"][selected_district]
+        loc["name"] for loc in requests_data["locations_async"][selected_district]
     ]
 
     keyboard_locations = [

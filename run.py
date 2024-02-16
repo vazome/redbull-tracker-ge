@@ -7,6 +7,7 @@ import json
 import re
 import os
 from datetime import datetime
+import time
 import asyncio
 import requests
 import pytz
@@ -34,6 +35,7 @@ timestr = time_in_tz.strftime("%Y-%m-%d-%H-%M-%S")
 # Not required after docker implementation
 # EXPORT_DIR = "./export"
 # os.makedirs(EXPORT_DIR, exist_ok=True)
+locations = {}
 raw_array = {}
 export_array = []
 EXPORT_FILE = f"./export_{timestr}.csv"
@@ -44,10 +46,14 @@ def get_data():
     with open(file="./requests_data.json", encoding="utf-8") as f:
         config = json.load(f)
         # Getting all location options and properly format them as dict
-        locations = {
-            loc["name"]: {"lat": loc["lat"], "lon": loc["lon"]}
-            for loc in config["locations_async"]
-        }
+    for group_name, location_list in config["locations_async"].items():
+        for location in location_list:
+            # Extract the location name, and create a sub-dictionary with 'lat' and 'lon'
+            location_name = location["name"]
+            locations[location_name] = {
+                "lat": location["lat"],
+                "lon": location["lon"],
+            }
 
         def request_by_type(method, **kwargs):
             request_method = getattr(requests, method)
@@ -67,6 +73,7 @@ def get_data():
                 for lang, params in platform["params_configs"].items():
                     special_none_thing = {"sorting_and_filtering_v2": None}
                     params_final = params | location_data | special_none_thing
+                    time.sleep(5)
                     response = request_by_type(
                         platform["request_type"],
                         url=platform["url"],
@@ -94,6 +101,7 @@ def get_data():
                 # Store values in variable "params", these values, also have keys and values
                 for lang, params in platform["params_configs"].items():
                     headers_final = location_data | platform["headers"]
+                    time.sleep(5)
                     response = request_by_type(
                         platform["request_type"],
                         url=platform["url"],

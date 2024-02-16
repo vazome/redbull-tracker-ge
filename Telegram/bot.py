@@ -30,10 +30,14 @@ user_data = {}  # a dict to dump user responses
 
 with open(os.path.dirname(__file__) + "/../requests_data.json", encoding="utf-8") as f:
     requests_data = json.load(f)
-    districts = {loc["name"] for loc in requests_data["locations_async"]}
-
+districts = list(requests_data["locations_async"].keys())
 # Making creating states in out conversation
-(USER_CHOOSING_SCHEDULE, USER_RECEIVES_SCHEDULED_REPLY) = range(2)
+(
+    USER_CHOOSING_SCHEDULE,
+    USER_CHOOSING_SUB_DISTRICT,
+    USER_RECEIVES_SCHEDULED_REPLY,
+    USER_CHOOSING_DISTRICT,
+) = range(4)
 
 # Logging
 logging.basicConfig(
@@ -46,15 +50,40 @@ logger = logging.getLogger(__name__)
 async def help_command(update: Update) -> None:
     """Displays info on how to use the bot."""
     await update.message.reply_text(
-        "First time use /start to begin conversation.\nTo restart conversation hit /cancel"
+        "First time use /start to begin conversation.\nTo restart conversation hit /retry"
     )
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     await update.message.reply_text(
-        "Hey! This is @RedBullTrackerBot\nTo restart conversation hit /cancel"
+        "Hey! This is @RedBullTrackerBot\nTo restart conversation hit /retry"
     )
     return await choose_district(update, context)
+
+
+async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    query = update.callback_query
+    await query.answer()
+    data = query.data
+
+    # Handle 'Back' button press
+    if data == "back_to_districts":
+        await choose_district(update, context)
+        return USER_CHOOSING_DISTRICT
+    # Handle main district selection
+    elif data in districts:
+        context.user_data["selected_district"] = data
+        await choose_sub_district(update, context)
+        return USER_CHOOSING_SUB_DISTRICT  # Now correctly returns to sub-district selection
+    # Handle sub-district selection
+    elif ":" in data:
+        selected_district, selected_sub_district = data.split(":")
+        user_district_options = f"{selected_district} → {selected_sub_district}"
+        context.user_data["selected_sub_district"] = selected_sub_district
+        await choose_schedule(
+            update, context, user_district_options
+        )  # Proceed to schedule selection
+        return USER_RECEIVES_SCHEDULED_REPLY
 
 
 async def choose_district(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -65,21 +94,56 @@ async def choose_district(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     ]
     reply_markup_districts = InlineKeyboardMarkup(keyboard_districts)
     # Artificial responsiveness through minimal sleep timer
-    time.sleep(1)
-    await update.message.reply_text(
-        "Please select your district:",
-        reply_markup=reply_markup_districts,
+    if update.callback_query:
+        await update.callback_query.answer()  # Always answer callback queries
+        await update.callback_query.message.edit_text(
+            text="Please select your district:", reply_markup=reply_markup_districts
+        )
+    else:
+        await update.message.reply_text(
+            "Please select your district:",
+            reply_markup=reply_markup_districts,
+        )
+    return USER_CHOOSING_DISTRICT
+
+
+async def choose_sub_district(
+    update: Update, context: ContextTypes.DEFAULT_TYPE
+) -> int:
+    query = update.callback_query
+    await query.answer()  # Important to give feedback to the user that something happened
+
+    selected_district = query.data  # This is the district the user clicked
+    with open("requests_data.json", "r", encoding="utf-8") as f:
+        config = json.load(f)
+
+    # Extracting location names for the selected district
+    location_names = [
+        loc["name"] for loc in config["locations_async"][selected_district]
+    ]
+
+    keyboard_locations = [
+        [InlineKeyboardButton(name, callback_data=f"{selected_district}:{name}")]
+        for name in location_names
+    ]
+    keyboard_locations.append(
+        [InlineKeyboardButton("← Back", callback_data="back_to_districts")]
+    )
+
+    reply_markup_locations = InlineKeyboardMarkup(keyboard_locations)
+
+    await query.edit_message_text(
+        text=f"Please select a location in {selected_district}:",
+        reply_markup=reply_markup_locations,
     )
     return USER_CHOOSING_SCHEDULE
 
 
-async def choose_schedule(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def choose_schedule(
+    update: Update, context: ContextTypes.DEFAULT_TYPE, user_district_options
+) -> int:
     query = update.callback_query
     await query.answer()
-    user_response = query.data
-
-    # Store the district selection in the context user_data for later use
-    context.user_data["district"] = user_response
 
     # Define scheduling options buttons
     keyboard_schedule = [
@@ -90,7 +154,7 @@ async def choose_schedule(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
     # Edit the message to show scheduling options instead
     await query.edit_message_text(
-        text=f"You selected {user_response}. How do you want to proceed with the pricing information?",
+        text=f"You selected {user_district_options}. How do you want to proceed with the pricing information?",
         reply_markup=reply_markup_schedule,
     )
 
@@ -101,7 +165,7 @@ async def schedule_chosen(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     query = update.callback_query
     await query.answer()
 
-    district_option = context.user_data["district"]
+    district_option = context.user_data["selected_sub_district"]
     schedule_option = query.data  # This will be either "once" or "daily"
     context.user_data["schedule"] = schedule_option
 
@@ -214,7 +278,7 @@ async def scheduled_report(context: ContextTypes.DEFAULT_TYPE):
     )
 
 
-async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def retry(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     chat_id = update.message.chat_id
     context.user_data.clear()
     context.chat_data.clear()
@@ -225,7 +289,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         job.schedule_removal()
     await context.bot.send_message(
         chat_id=chat_id,
-        text=f"User {update.effective_user.username} canceled the conversation.",
+        text=f"User {update.effective_user.username} retried the conversation.",
     )
     return await start(update, context)
 
@@ -237,10 +301,12 @@ def main() -> None:
     convo_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
         states={
+            USER_CHOOSING_DISTRICT: [CallbackQueryHandler(handle_callback)],
+            USER_CHOOSING_SUB_DISTRICT: [CallbackQueryHandler(handle_callback)],
             USER_CHOOSING_SCHEDULE: [CallbackQueryHandler(choose_schedule)],
             USER_RECEIVES_SCHEDULED_REPLY: [CallbackQueryHandler(schedule_chosen)],
         },
-        fallbacks=[CommandHandler("cancel", cancel)],
+        fallbacks=[CommandHandler("retry", retry)],
     )
     application.add_handler(convo_handler)
 

@@ -1,21 +1,29 @@
 # RedBull price tracker 
-[![Run Red Bull Price Grabber](https://github.com/vazome/redbull-tracker-ge/actions/workflows/schedule_run.yml/badge.svg?branch=main)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/schedule_run.yml)
+[![Run Red Bull Price Grabber](https://github.com/vazome/redbull-tracker-ge/actions/workflows/redbulltracker_run.yml/badge.svg?branch=main)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/redbulltracker_run.yml)
 
-Convenient Red Bull price tracker made for Tbilisi, Georgia.
+Convenient Red Bull price tracker made for Tbilisi, Georgia. This project covers both data collection and representation with the last delegated to Telegram bot and Grafana.
 
-As of now it supports two most major delivery providers: Wolt and Glovo.
+As of now it supports two most major delivery providers: [Wolt](https://wolt.com/en/geo) and [Glovo](https://glovoapp.com/ge/en/tbilisi/).
 
-Utilizes: 
-- Python
-- Github Actions
-- Docker
-- AWS RDS for PostgreSQL
-- Grafana
-- Telegram API
+Project utilizes: 
+- Scripting \[Python, SQL\]
+- Containerization \[Github Actions, Docker, AWS ECS (EC2 based)\]
+- Storage \[AWS RDS for PostgreSQL, json\]
+- User Interfaces \[Grafana, Telegram Bot API\]
+
+Plans:
+- [x] Bot: Deploy bot in AWS
+- [x] Parse: Deploy parser in Github Actions with auto-commits for new json export files
+- [x] Parser: enable parsing for most popular Tbilisi districts with products EN/GE variations.
+- [x] DB: Enable product_volume column and autofill on Postgres side by parsing names
+- [ ] Bot: Add product/store links to the bot output
+- [ ] Bot: Allow users to define daily schedule time
+- [ ] Bot: Dynamic checking of [`requests_data.json`] file
+- [ ] Grafana: Create average and lowest fluctuation charts
 
 ## How to use
 ## Telegram bot
-I've made a bot for a simple now or daily reporting: [Red Bull Tracker Bot](https://t.me/RedBullTrackerBot)
+I've made a bot for immediate or daily reportings: [@RedBullTrackerBot](https://t.me/RedBullTrackerBot). Here is how it works:
 
 <img src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/8c59955b-85cf-4f14-984b-f6139c0f24a3" loop=infinite>
 
@@ -32,19 +40,22 @@ The script begins by loading its configuration from a JSON file named [`requests
 
 For each platform specified in the configuration, the script makes HTTP requests to the platform's API. The type of request (`GET` or `POST`) and the necessary headers are defined per platform in the configuration file.
 
+
 #### Dynamic Location Handling
 The script utilizes the `locations_async` array from the configuration to dynamically adjust the request parameters for geolocation, enabling localized price tracking across different areas in Tbilisi.
 
+[@RedBullTrackerBot](https://t.me/RedBullTrackerBot) also looks into requests_data.json, this is where it gets current list of all supported districts.
+
 ### Data Extraction and transformation
-Upon receiving the response from each platform, it parses the returned data for Red Bulls. This typically includes the product name, price, and any other pertinent details provided by the platform. Data from each platform is parsed in order to pull out only the nessesities.
+Upon receiving the response from each platform, it parses the returned data for Red Bulls. This typically includes the product name, price, and any other pertinent details provided by the platform. Data from each platform is parsed in order to pull out only the necessities.
 <img width="631" alt="image" src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/88a1e594-6c4c-4a24-bcff-f32fc1ad15a0">
 
 ### Storage
 After data is parsed it is aggregated in both repo folder [./export](./export/) where each file is timestamped in UTC+00:00 and sent for store in bulk to AWS RDS PostgreSQL database.
-For DB it ensures that new data is correctly inserted and provides an easy-to-analys dataset.
+Ready to be picked up at UI stage.
 <img width="1171" alt="image" src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/f3c2e9d3-d5f0-4d83-b5e9-d3492c509b78">
 
 ### Automation via GitHub Actions
 The entire process is automated through GitHub Actions, which configurations are stored in [.github/workflows](.github/workflows) (default location).
 
-The responsible action for scheduled runs is [![Run Red Bull Tracker](https://github.com/vazome/redbull-tracker-ge/actions/workflows/schedule_run.yml/badge.svg)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/schedule_run.yml).
+The responsible action for scheduled runs is [![Run Red Bull Tracker](https://github.com/vazome/redbull-tracker-ge/actions/workflows/redbulltracker_run.yml/badge.svg)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/redbulltracker_run.yml).

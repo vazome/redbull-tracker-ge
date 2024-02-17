@@ -22,14 +22,17 @@ Plans:
 - [ ] Grafana: Create average and lowest fluctuation charts
 
 ## How to use
+
+
+
 ## Telegram bot
 I've made a bot for immediate or daily reportings: [@RedBullTrackerBot](https://t.me/RedBullTrackerBot). Here is how it works:
 
-<img src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/8c59955b-85cf-4f14-984b-f6139c0f24a3" loop=infinite>
+https://github.com/vazome/redbull-tracker-ge/assets/46573198/3706c2ad-9227-4e72-a1a7-3eecae19d35a
 
 ## Grafana Analytics View
 I wanted something to glance on and see the numbers changing, so I built a Grafana dashboard for that:
-<img width="1208" alt="image" src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/49440610-9a37-4e54-8c73-69074e14e1ab">
+<img width="1208" alt="image" src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/49440610-9a37-4e54-8c73-69074e14e1ab">(https://vazome.grafana.net/public-dashboards/61b08f3b99974e1bab84a96e5c039a77)
 
 Available here: [Red Bull Dynamics](https://vazome.grafana.net/public-dashboards/61b08f3b99974e1bab84a96e5c039a77)
 

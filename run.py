@@ -117,7 +117,7 @@ def get_data():
     return raw_array
 
 
-# Parsing the data
+# Parsing the data, I wanted it to be universal, but guess each platform will have their own function
 def wolt_parse():
     for location in raw_array["wolt"]:
         location_name = location["location_name"]

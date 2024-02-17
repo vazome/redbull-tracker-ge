@@ -1,5 +1,7 @@
 # RedBull price tracker 
-[![Run Red Bull Price Grabber](https://github.com/vazome/redbull-tracker-ge/actions/workflows/redbulltracker_run.yml/badge.svg?branch=main)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/redbulltracker_run.yml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vazome/redbull-tracker-ge/redbulltracker_run.yml?style=flat-square&logo=githubactions&label=Run%20Red%20Bull%20Tracker) ![Docker Image Version (tag)](https://img.shields.io/docker/v/vazome/redbull-tracker-ge/latest?arch=amd64&style=flat-square&logo=docker&label=redbull-tracker-ge) ![Docker Image Version (tag)](https://img.shields.io/docker/v/vazome/redbull-bot-docker/latest?arch=amd64&style=flat-square&logo=docker&label=redbull-bot-docker)
+
+
 
 Convenient Red Bull price tracker made for Tbilisi, Georgia. This project covers both data collection and representation with the last delegated to Telegram bot and Grafana.
 

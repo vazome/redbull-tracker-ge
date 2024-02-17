@@ -67,7 +67,6 @@ def get_data():
         platform_name = platform["platform_name"]
         if platform_name not in raw_array:
             raw_array[platform_name] = []
-        # Create different request configs depending on the number of our locations
         for location_name, location_data in locations.items():
             if platform["platform_name"] == "wolt":
                 for lang, params in platform["params_configs"].items():
@@ -147,15 +146,12 @@ def wolt_parse():
                 export_array.append(wolt_export)
 
 
-#                export_array.append(wolt_export)
-
-
 def glovo_parse():
     for location in raw_array["glovo"]:
-        # Parse the JSON string in 'raw_data' to a Python object (dict)
+        # Parsing the JSON string in 'raw_data' to a Python dict
         location_name = location["location_name"]
         raw_data = json.loads(location["raw_data"])
-        if "elements" in raw_data:  # Ensure 'elements' key exists
+        if "elements" in raw_data:
             for element in raw_data["elements"]:
                 if element["singleData"]["type"] == "STORE_WITH_PRODUCTS":
                     glovo_venue_id = element["singleData"]["storeProductsData"][

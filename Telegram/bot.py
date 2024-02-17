@@ -31,7 +31,7 @@ user_data = {}  # a dict to dump user responses
 with open(os.path.dirname(__file__) + "/../requests_data.json", encoding="utf-8") as f:
     requests_data = json.load(f)
 districts = list(requests_data["locations_async"].keys())
-# Making creating states in out conversation
+# Creating states in out conversation
 (
     USER_CHOOSING_SCHEDULE,
     USER_CHOOSING_SUB_DISTRICT,
@@ -61,6 +61,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     return await choose_district(update, context)
 
 
+# Kind of an abstraction to handle states in one function instead editing the logic in each function
 async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
     await query.answer()
@@ -93,7 +94,7 @@ async def choose_district(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         for district in districts
     ]
     reply_markup_districts = InlineKeyboardMarkup(keyboard_districts)
-    # Artificial responsiveness through minimal sleep timer
+    # There was a sleep timer but I got rid of it...
     if update.callback_query:
         await update.callback_query.answer()  # Always answer callback queries
         await update.callback_query.message.edit_text(
@@ -107,11 +108,12 @@ async def choose_district(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     return USER_CHOOSING_DISTRICT
 
 
+# Sub districts address real district names in the DB
 async def choose_sub_district(
     update: Update, context: ContextTypes.DEFAULT_TYPE
 ) -> int:
     query = update.callback_query
-    await query.answer()  # Important to give feedback to the user that something happened
+    await query.answer()
 
     selected_district = query.data
     # Extracting location names for the selected district
@@ -142,14 +144,12 @@ async def choose_schedule(
     query = update.callback_query
     await query.answer()
 
-    # Define scheduling options buttons
     keyboard_schedule = [
         [InlineKeyboardButton("Get prices now", callback_data="once")],
         [InlineKeyboardButton("Receive daily prices report", callback_data="daily")],
     ]
     reply_markup_schedule = InlineKeyboardMarkup(keyboard_schedule)
 
-    # Edit the message to show scheduling options instead
     await query.edit_message_text(
         text=f"You selected {user_district_options}. How do you want to proceed with the pricing information?",
         reply_markup=reply_markup_schedule,
@@ -163,11 +163,9 @@ async def schedule_chosen(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     await query.answer()
 
     district_option = context.user_data["selected_sub_district"]
-    schedule_option = query.data  # This will be either "once" or "daily"
+    schedule_option = query.data
     context.user_data["schedule"] = schedule_option
 
-    # Here you can implement your logic based on the schedule_option
-    # For example:
     chat_id = update.effective_chat.id
     scheduled_time = datetime.time(
         hour=13, minute=10, tzinfo=pytz.timezone("Asia/Tbilisi")
@@ -196,9 +194,6 @@ async def schedule_chosen(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             },
         )
     await context.bot.send_message(chat_id=chat_id, text=reply_user_timing)
-
-
-#    await query.edit_message_text(text=f"Your scheduling option: {schedule_option}")
 
 
 def pg_export(schedule, district):
@@ -236,12 +231,11 @@ ORDER BY p.product_price ASC LIMIT 10"""
 
 
 async def save_selection_to_database(user_id, district):
-    # For the future, to remeber users options and schedules if container restarts
+    # For the future, to remember users options and schedules if container restarts
     pass
 
 
 async def scheduled_report(context: ContextTypes.DEFAULT_TYPE):
-    # Beep the person who called this alarm:
     chat_id = context.job.data["chat_id"]
     schedule = context.job.data["schedule"]
     district = context.job.data["district"]
@@ -254,7 +248,7 @@ async def scheduled_report(context: ContextTypes.DEFAULT_TYPE):
         escape_chars = "_*[]()~`>#+-=|{}.!"
         return "".join(f"\\{char}" if char in escape_chars else char for char in text)
 
-    # Declare new variables to store tuples results in and use MD escape function
+    # Declare new variables to store tuple and use MD escape function for each
     output = ""
     for details in result:
         name = (
@@ -293,7 +287,7 @@ async def retry(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 def main() -> None:
     """Run the bot."""
-    # Create the Application and pass it your bot's token.
+    # Create the Application
     application = Application.builder().token(TG_BOT_TOKEN).build()
     convo_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
@@ -306,8 +300,6 @@ def main() -> None:
         fallbacks=[CommandHandler("retry", retry)],
     )
     application.add_handler(convo_handler)
-
-    # Run the bot until the user presses Ctrl-C
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 

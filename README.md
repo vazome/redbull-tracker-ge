@@ -34,10 +34,10 @@ https://github.com/vazome/redbull-tracker-ge/assets/46573198/3706c2ad-9227-4e72-
 
 ## Grafana Analytics View
 I wanted something to glance on and see the numbers changing, so I built a Grafana dashboard for that:
-[<img width="1208" alt="image" src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/49440610-9a37-4e54-8c73-69074e14e1ab">](https://vazome.grafana.net/public-dashboards/61b08f3b99974e1bab84a96e5c039a77)
+
+[<img width="1450" alt="image" src="https://github.com/vazome/redbull-tracker-ge/assets/46573198/7e62d523-29cd-4fb1-8d9e-308533685ad8">](https://vazome.grafana.net/public-dashboards/61b08f3b99974e1bab84a96e5c039a77)
 
 Available here: [Red Bull Dynamics](https://vazome.grafana.net/public-dashboards/61b08f3b99974e1bab84a96e5c039a77)
-
 
 ## How it works
 ### Building a request

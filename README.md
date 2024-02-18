@@ -18,6 +18,7 @@ Plans:
 - [x] Parse: Deploy parser in Github Actions with auto-commits for new json export files
 - [x] Parser: enable parsing for most popular Tbilisi districts with products EN/GE variations.
 - [x] DB: Enable product_volume column and autofill on Postgres side by parsing names
+- [ ] DB/Parser: Add `2 Nabiji` grocery store
 - [ ] Bot: Add product/store links to the bot output
 - [ ] Bot: Allow users to define daily schedule time
 - [ ] Bot: Dynamic checking of [`requests_data.json`] file

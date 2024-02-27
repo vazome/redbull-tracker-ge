@@ -204,21 +204,13 @@ def pg_export(schedule, district):
         password=PG_PASSWORD,
         port=PG_DB_PORT,
     )
-    SQL_GET_TODAY = """SELECT p.product_name, p.product_price, g.venue_name, g.platform_name 
+    SQL_GET = """SELECT p.product_name, p.product_price, g.venue_name, g.platform_name 
 FROM products p JOIN general g ON p.product_id = g.product_id
 WHERE p.created_at >= NOW() - INTERVAL '24 HOURS' AND p.location_name = %s 
 ORDER BY p.product_price ASC LIMIT 10"""
-    SQL_GET_DAILY = """SELECT product_name, product_price
-    FROM products
-    WHERE products.created_at >= NOW() - INTERVAL '24 HOURS'
-    AND location_name = %s
-    ORDER BY product_price ASC LIMIT 10"""
     try:
         cursor = connect.cursor()
-        if schedule == "once":
-            cursor.execute(SQL_GET_TODAY, (district,))
-        if schedule == "daily":
-            cursor.execute(SQL_GET_DAILY, (district,))
+        cursor.execute(SQL_GET, (district,))
         result = cursor.fetchall()
         return result
     except psycopg2.Error as e:

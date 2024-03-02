@@ -8,7 +8,6 @@ import re
 import os
 from datetime import datetime
 import time
-import asyncio
 import requests
 import pytz
 import psycopg2

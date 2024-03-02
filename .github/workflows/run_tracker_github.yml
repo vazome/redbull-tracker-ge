@@ -20,7 +20,7 @@ env:
 jobs:
   run-in-docker:
     runs-on: ubuntu-20.04
-    container: vazome/redbull-tracker-ge:latest
+    container: vazome/redbull-tracker:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -63,7 +63,7 @@ jobs:
           git commit -am "Adding more price reports to export"
           git push
 
-# Not needed, utilizing artifacts
+# Not needed to utilize artifacts
 #      - name: Copy generated files from container
 #        run: |
 #          docker cp redbull-tracker-ge:/usr/src/app "${{github.workspace}}"

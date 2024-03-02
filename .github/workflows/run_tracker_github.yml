@@ -3,6 +3,9 @@ name: Run Red Bull Tracker
 on:
   schedule:
     - cron: "0 7 * * *" # Runs at 07:00 UTC every day
+  push:
+    paths:
+      - .**/run_tracker_github.yml
   workflow_dispatch:
 
 permissions:
@@ -20,7 +23,7 @@ env:
 jobs:
   run-in-docker:
     runs-on: ubuntu-20.04
-    container: vazome/redbull-tracker:latest
+    container: vazome/redbull-tracker-ge:tracker-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4

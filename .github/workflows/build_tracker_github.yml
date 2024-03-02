@@ -31,6 +31,6 @@ jobs:
         with:
           context: "{{defaultContext}}:docker/tracker"
           push: true
-          cache-from: type=registry,ref=vazome/redbull-tracker:latest
+          cache-from: type=registry,ref=vazome/redbull-tracker-ge:tracker-latest
           cache-to: type=inline
-          tags: vazome/redbull-tracker:latest
+          tags: vazome/redbull-tracker-ge:tracker-latest

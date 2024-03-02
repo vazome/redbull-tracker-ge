@@ -1,4 +1,4 @@
-name: Ping AWS CodeBuild to build a new bot container
+name: Build Bot Image with AWS
 
 on:
   workflow_dispatch:

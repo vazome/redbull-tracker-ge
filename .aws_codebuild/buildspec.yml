@@ -18,7 +18,7 @@ phases:
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
       - task_definition_name=$(aws ecs describe-services --services redbull-daemon --cluster redbull | jq -r ".services[].taskDefinition")
       - container_name=$(aws ecs describe-task-definition --task-definition $task_definition_name | jq -r '.taskDefinition.containerDefinitions[].name')
-      - printf '[{"name":"$container_name","'$REPOSITORY_URI':'$IMAGE_TAG'"}]' > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s:%s"}]' "$container_name" "$REPOSITORY_URI" "$IMAGE_TAG" > imagedefinitions.json
 artifacts:
   files:
     - "**/*"

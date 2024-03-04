@@ -19,6 +19,8 @@ Plans:
 - [x] Parse: Deploy parser in Github Actions with auto-commits for new json export files
 - [x] Parser: enable parsing for most popular Tbilisi districts with products EN/GE variations.
 - [x] DB: Enable product_volume column and autofill on Postgres side by parsing names
+- [x] CI/CD: Implement Github actions for tracker and AWS CodePipeline for bot
+- [ ] DB: Implement [Redis](https://github.com/redis/redis) for data cache hits and user responses 
 - [ ] DB/Parser: Add `2 Nabiji` grocery store
 - [ ] Bot: Add product/store links to the bot output
 - [ ] Bot: Allow users to define daily schedule time
@@ -26,8 +28,6 @@ Plans:
 - [ ] Grafana: Create average and lowest fluctuation charts
 
 ## How to use
-
-
 
 ## Telegram bot
 I've made a bot for immediate or daily reportings: [@RedBullTrackerBot](https://t.me/RedBullTrackerBot). Here is how it works:

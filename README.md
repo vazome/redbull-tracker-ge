@@ -1,5 +1,5 @@
 # Red Bull Price Tracker 
-![Build Bot image with AWS CodeBuild](https://codebuild.eu-central-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoieW13QkdUc1NYQ0gyL0QvMkJNcjR6eHlVTHAxeUZkblA3WUJjamNpZTBHeWlWVVJMYWx0cTVyZTMwRmY0REZ2NExTSEZTZUJtQXJYZWlQWm4xMFFWOHlRPSIsIml2UGFyYW1ldGVyU3BlYyI6Ikp5dmo2MWp0VFlzZWJET2ciLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)
+![AWS CodeBuild](https://codebuild.eu-central-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoieW13QkdUc1NYQ0gyL0QvMkJNcjR6eHlVTHAxeUZkblA3WUJjamNpZTBHeWlWVVJMYWx0cTVyZTMwRmY0REZ2NExTSEZTZUJtQXJYZWlQWm4xMFFWOHlRPSIsIml2UGFyYW1ldGVyU3BlYyI6Ikp5dmo2MWp0VFlzZWJET2ciLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)
 [![Build Tracker image with Github Actions](https://github.com/vazome/redbull-tracker-ge/actions/workflows/build_tracker_github.yml/badge.svg)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/build_tracker_github.yml)
 [![Run Red Bull Tracker](https://github.com/vazome/redbull-tracker-ge/actions/workflows/run_tracker_github.yml/badge.svg)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/run_tracker_github.yml)
 ![Docker Image Version (tag)](https://img.shields.io/docker/v/vazome/redbull-tracker-ge/tracker-latest?arch=amd64&logo=docker&label=redbull-tracker-ge)

@@ -1,7 +1,8 @@
 # Red Bull Price Tracker 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vazome/redbull-tracker-ge/redbulltracker_run.yml?style=flat-square&logo=githubactions&label=Run%20Red%20Bull%20Tracker) ![Docker Image Version (tag)](https://img.shields.io/docker/v/vazome/redbull-tracker-ge/latest?arch=amd64&style=flat-square&logo=docker&label=redbull-tracker-ge) ![Docker Image Version (tag)](https://img.shields.io/docker/v/vazome/redbull-bot-docker/latest?arch=amd64&style=flat-square&logo=docker&label=redbull-bot-docker)
-
-
+![AWS CodeBuild](https://codebuild.eu-central-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoieW13QkdUc1NYQ0gyL0QvMkJNcjR6eHlVTHAxeUZkblA3WUJjamNpZTBHeWlWVVJMYWx0cTVyZTMwRmY0REZ2NExTSEZTZUJtQXJYZWlQWm4xMFFWOHlRPSIsIml2UGFyYW1ldGVyU3BlYyI6Ikp5dmo2MWp0VFlzZWJET2ciLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)
+[![Build Tracker image with Github Actions](https://github.com/vazome/redbull-tracker-ge/actions/workflows/build_tracker_github.yml/badge.svg)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/build_tracker_github.yml)
+[![Run Red Bull Tracker](https://github.com/vazome/redbull-tracker-ge/actions/workflows/run_tracker_github.yml/badge.svg)](https://github.com/vazome/redbull-tracker-ge/actions/workflows/run_tracker_github.yml)
+![Docker Image Version (tag)](https://img.shields.io/docker/v/vazome/redbull-tracker-ge/tracker-latest?arch=amd64&logo=docker&label=redbull-tracker-ge)
 
 Convenient Red Bull price tracker made for Tbilisi, Georgia. This project covers both data collection and representation, with the latter delegated to Telegram bot and Grafana.
 

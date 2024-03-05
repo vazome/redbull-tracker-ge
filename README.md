@@ -7,6 +7,8 @@
 
 Convenient Red Bull price tracker made for Tbilisi, Georgia. This project covers both data collection and representation, with the latter delegated to Telegram bot and Grafana.
 
+![image](.assets/redbull_architecture.svg)
+
 As of now it supports two most major delivery providers: [Wolt](https://wolt.com/en/geo) and [Glovo](https://glovoapp.com/ge/en/tbilisi/).
 
 Project utilizes: 

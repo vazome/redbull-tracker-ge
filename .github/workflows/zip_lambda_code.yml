@@ -19,8 +19,8 @@ jobs:
 
         - name: Zip Lambda code
           run: |
-            gzip -r lambda.zip .
-          working-directory: ${{ github.workspace }}/.aws_lambda
+            zip -r lambda.zip .
+          working-directory: ${{github.workspace}}/.aws_lambda
 
         - name: configure aws credentials
           uses: aws-actions/configure-aws-credentials@v3
@@ -32,4 +32,4 @@ jobs:
         - name:  Copy lambda zip to s3
           run: |
             aws s3 cp ./lambda.zip s3://${{secrets.AWS_BUCKET_NAME}}/    
-          working-directory: ${{ github.workspace }}/.aws_lambda
+          working-directory: ${{github.workspace}}/.aws_lambda

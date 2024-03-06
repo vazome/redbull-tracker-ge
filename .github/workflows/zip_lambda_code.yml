@@ -19,9 +19,8 @@ jobs:
 
         - name: Zip Lambda code
           run: |
-            cd .aws_lambda
             zip -r lambda.zip .
-          working-directory: .aws_lambda
+          working-directory: ${{ github.workspace }}/.aws_lambda
 
         - name: configure aws credentials
           uses: aws-actions/configure-aws-credentials@v3

@@ -1,0 +1,35 @@
+name: Zip Lambda Badge code
+
+on:
+  push:
+    paths:
+      - '.aws_lambda/**'
+      - '.github/workflows/zip-lambda-code.yml'
+
+permissions:
+    id-token: write # This is required for requesting the JWT
+    contents: read  # This is required for actions/checkout
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Zip Lambda code
+          run: |
+            cd .aws_lambda
+            zip -r lambda.zip .
+          working-directory: .aws_lambda
+
+        - name: configure aws credentials
+          uses: aws-actions/configure-aws-credentials@v3
+          with:
+            role-to-assume: ${{secrets.AWS_OIDC_ROLE_ARN}}
+            role-session-name: export-aws-lambda-code
+            aws-region: ${{secrets.AWS_REGION}}
+
+        - name:  Copy index.html to s3
+          run: |
+            aws s3 cp ./lambda.zip s3://${{secrets.AWS_BUCKET_NAME}}/    

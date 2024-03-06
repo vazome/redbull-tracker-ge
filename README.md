@@ -14,7 +14,7 @@ As of now it supports two most major delivery providers: [Wolt](https://wolt.com
 Project utilizes: 
 - Scripting \[Python, SQL\]
 - Containerization \[Docker, Docker Hub, AWS ECS (EC2 based), AWS ECR\]
-– CI/CD automation \[Github Actions, AWS CodePipeline, AWS CodeBuild, AWS CodeDeploy, AWS Lambda, AWS API Gateway\]
+- CI/CD automation \[Github Actions, AWS CodePipeline, AWS CodeBuild, AWS CodeDeploy, AWS Lambda, AWS API Gateway\]
 - Data storage \[AWS RDS for PostgreSQL, json\]
 - User Interfaces \[Grafana, Telegram Bot API\]
 
@@ -24,7 +24,7 @@ Plans:
 - [x] Parser: enable parsing for most popular Tbilisi districts with products EN/GE variations.
 - [x] DB: Enable product_volume column and autofill on Postgres side by parsing names
 - [x] CI/CD: Implement Github actions for tracker and AWS CodePipeline for bot
-– [x] CI/CD: Report AWS Codepipelie status and show it as a badge
+- [x] CI/CD: Report AWS Codepipelie status and show it as a badge
 - [ ] DB: Implement [Redis](https://github.com/redis/redis) for data cache hits and user responses 
 - [ ] DB/Parser: Add [2 Nabiji](https://2nabiji.ge/en) grocery store
 - [ ] Bot: Add product/store links to the bot output

@@ -59,7 +59,7 @@ def get_data():
             response = request_method(**kwargs)
             # print(platform["service_name"] + " status code" + str(response.status_code))
             # return response.text, platform["service_name"]
-            # It's some sort of error handling referencing HTTP respose code
+            # It's some sort of error handling referencing HTTP response code
             return response
 
     for platform in config["platforms"]:
@@ -71,7 +71,7 @@ def get_data():
                 for lang, params in platform["params_configs"].items():
                     special_none_thing = {"sorting_and_filtering_v2": None}
                     params_final = params | location_data | special_none_thing
-                    time.sleep(5)
+                    time.sleep(10)
                     response = request_by_type(
                         platform["request_type"],
                         url=platform["url"],
@@ -99,7 +99,7 @@ def get_data():
                 # Store values in variable "params", these values, also have keys and values
                 for lang, params in platform["params_configs"].items():
                     headers_final = location_data | platform["headers"]
-                    time.sleep(5)
+                    time.sleep(10)
                     response = request_by_type(
                         platform["request_type"],
                         url=platform["url"],

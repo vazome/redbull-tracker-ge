@@ -30,10 +30,6 @@ timezone = pytz.timezone("UTC")
 time_in_tz = datetime.now(timezone)
 timestr = time_in_tz.strftime("%Y-%m-%d-%H-%M-%S")
 
-# Creating the dir if missing
-# Not required after docker implementation
-# EXPORT_DIR = "./export"
-# os.makedirs(EXPORT_DIR, exist_ok=True)
 locations = {}
 raw_array = {}
 export_array = []

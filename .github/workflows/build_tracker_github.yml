@@ -3,7 +3,9 @@ name: Build Tracker Image with Github Actions
 on:
   push:
     paths:
+      - .**/build_tracker_github.yml
       - docker/tracker/**
+      - run.py
 
 env:
   DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}

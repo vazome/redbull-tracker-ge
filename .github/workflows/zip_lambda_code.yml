@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '.aws_lambda/**'
-      - '.github/workflows/zip-lambda-code.yml'
+      - '.**/zip_lambda_code.yml'
 
 permissions:
     id-token: write # This is required for requesting the JWT

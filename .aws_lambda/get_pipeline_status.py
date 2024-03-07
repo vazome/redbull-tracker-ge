@@ -6,7 +6,6 @@ def lambda_handler(event, context):
     pipeline_name = "redbull-tracker-ge_bot_pipeline"
     client = boto3.client("codepipeline")
 
-    # List recent executions (adjust as needed)
     response = client.list_pipeline_executions(pipelineName=pipeline_name, maxResults=1)
     executions = (
         response["pipelineExecutionSummaries"][0]

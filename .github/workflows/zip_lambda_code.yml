@@ -23,7 +23,7 @@ jobs:
           working-directory: ${{github.workspace}}/.aws_lambda
 
         - name: configure aws credentials
-          uses: aws-actions/configure-aws-credentials@v3
+          uses: aws-actions/configure-aws-credentials@v4
           with:
             role-to-assume: ${{secrets.AWS_OIDC_ROLE_ARN}}
             role-session-name: export-aws-lambda-code

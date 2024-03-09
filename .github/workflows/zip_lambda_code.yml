@@ -31,5 +31,5 @@ jobs:
 
         - name:  Copy lambda zip to s3
           run: |
-            aws s3 cp ./lambda.zip s3://${{secrets.AWS_BUCKET_NAME}}/    
+            aws s3api put-object --bucket ${{secrets.AWS_BUCKET_NAME}} --key lambda.zip --body lambda.zip --checksum-algorithm sha256
           working-directory: ${{github.workspace}}/.aws_lambda

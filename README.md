@@ -32,6 +32,7 @@ Plans:
 - [ ] Bot: Dynamic checking of [`requests_data.json`](requests_data.json) file
 - [ ] Grafana: Create average and lowest fluctuation charts
 - [ ] Proxy: make requests via proxies for [run_tracker_github.yml](.github/workflows/run_tracker_github.yml)
+- [ ] Security: [Apply Trivy github actions](https://github.com/aquasecurity/trivy)
 
 ## How to use
 

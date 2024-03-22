@@ -62,7 +62,7 @@ def setup_proxies():
 # This is a retry strategy with each try triggering a new proxy connection
 # Helps to negate the effects of rate limiting and possibility of a dead proxy
 retry_strategy = Retry(
-    total=5,
+    total=10,
     backoff_factor=1,
     status_forcelist=[429, 500, 502, 503, 504],
     allowed_methods=frozenset(["GET", "POST"]),

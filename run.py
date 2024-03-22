@@ -118,8 +118,6 @@ def get_data():
                     print(
                         f"The type is: {type(response)}\n{type(response.text)}\n{response.status_code}"
                     )
-                    if not response.text:
-                        print(f"Empty response from {platform_name}")
                     raw_array[platform_name].append(
                         {
                             "location_name": location_name,
@@ -149,7 +147,9 @@ def get_data():
                         proxies=setup_proxies(),
                         timeout=5,
                     )
-                    print(f"The type is: {type(response)}\n{response.text}")
+                    print(
+                        f"The type is: {type(response)}\n{type(response.text)}\n{response.status_code}"
+                    )
                     raw_array[platform_name].append(
                         {
                             "location_name": location_name,

@@ -18,6 +18,8 @@ Project utilizes:
 - Data storage \[AWS RDS for PostgreSQL, json\]
 - User Interfaces \[Grafana, Telegram Bot API\]
 
+Special thanks to [TheSpeedX](https://github.com/TheSpeedX) for the proxies! 
+
 Plans:
 - [x] Bot: Deploy bot in AWS
 - [x] Parse: Deploy parser in Github Actions with auto-commits for new json export files
@@ -25,13 +27,13 @@ Plans:
 - [x] DB: Enable product_volume column and autofill on Postgres side by parsing names
 - [x] CI/CD: Implement Github actions for tracker and AWS CodePipeline for bot
 - [x] CI/CD: Report AWS Codepipelie status and show it as a badge
+- [x] Proxy: make requests via proxies for [run_tracker_github.yml](.github/workflows/run_tracker_github.yml)
 - [ ] DB: Implement [Redis](https://github.com/redis/redis) for data cache hits and user responses 
 - [ ] DB/Parser: Add [2 Nabiji](https://2nabiji.ge/en) grocery store
 - [ ] Bot: Add product/store links to the bot output
 - [ ] Bot: Allow users to define daily schedule time
 - [ ] Bot: Dynamic checking of [`requests_data.json`](requests_data.json) file
 - [ ] Grafana: Create average and lowest fluctuation charts
-- [ ] Proxy: make requests via proxies for [run_tracker_github.yml](.github/workflows/run_tracker_github.yml)
 - [ ] Security: [Apply Trivy github actions](https://github.com/aquasecurity/trivy)
 
 ## How to use

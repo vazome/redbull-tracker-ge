@@ -2,7 +2,7 @@ name: Run Red Bull Tracker
 
 on:
   schedule:
-    - cron: "0 7 * * *" # Runs at 07:00 UTC every day
+    #    - cron: "0 7 * * *" # Runs at 07:00 UTC every day
   push:
     paths:
       - .**/run_tracker_github.yml
